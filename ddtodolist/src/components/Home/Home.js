@@ -15,7 +15,7 @@ import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import styled from "styled-components";
 import logo from "../../assets/image/dadong.jpg";
-import CheckboxList from "../checkItem";
+import CheckboxList from "../CheckItem";
 
 const Logo = styled.img.attrs({
   src: logo,
@@ -47,7 +47,8 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(8, 0, 6)
   },
   heroButtons: {
-    marginTop: theme.spacing(4)
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2)
   },
   cardGrid: {
     paddingTop: theme.spacing(8),
@@ -74,7 +75,6 @@ const cards = [1, 2];
 
 export default function Album() {
   const classes = useStyles();
-
   return (
     <React.Fragment>
       <CssBaseline />
@@ -118,20 +118,6 @@ export default function Album() {
             >
               大东智能化系统工程有限公司待办事项系统
             </Typography>
-            {/* <div className={classes.heroButtons}>
-              <Grid container spacing={2} justify="center">
-                <Grid item>
-                  <Button variant="contained" color="primary">
-                    Main call to action
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button variant="outlined" color="primary">
-                    Secondary action
-                  </Button>
-                </Grid>
-              </Grid>
-            </div> */}
           </Container>
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
@@ -144,6 +130,20 @@ export default function Album() {
                   <Typography gutterBottom variant="h5" component="h2">
                     待完成事项
                   </Typography>
+                  <div className={classes.heroButtons}>
+                    <Grid container spacing={2} justify="center">
+                      <Grid item>
+                        <Button variant="contained" color="primary">
+                          已完成勾选项目
+                        </Button>
+                      </Grid>
+                      <Grid item>
+                        <Button variant="outlined" color="primary">
+                          创建新事项
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </div>
                   <CheckboxList lists={[0, 1, 2, 3]} />
                   {/* <Typography>
                     This is a media card. You can use this section to describe
@@ -159,6 +159,20 @@ export default function Album() {
                   <Typography gutterBottom variant="h5" component="h2">
                     备忘录
                   </Typography>
+                  <div className={classes.heroButtons}>
+                    <Grid container spacing={2} justify="center">
+                      <Grid item>
+                        <Button variant="contained" color="primary">
+                          已完成勾选任务
+                        </Button>
+                      </Grid>
+                      <Grid item>
+                        <Button variant="outlined" color="primary">
+                          创建新备忘任务
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </div>
                   <CheckboxList lists={[0, 1, 2, 3]} />
                   {/* <Typography>
                     This is a media card. You can use this section to describe

@@ -136,19 +136,19 @@ const BigDrawer = ({ handleClose, open }) => {
               </ListItemIcon>
               <ListItemText primary="首页" />
             </ListItem>
-            <ListItem button>
+            <ListItem button component={Link} to={"/current_project"}>
               <ListItemIcon>
                 <CurrentProjectIcon />
               </ListItemIcon>
               <ListItemText primary="目前所有项目" />
             </ListItem>
-            <ListItem button>
+            <ListItem button component={Link} to={"/people_assign"}>
               <ListItemIcon>
                 <PeopleAssignIcon />
               </ListItemIcon>
               <ListItemText primary="人员分配" />
             </ListItem>
-            <ListItem button>
+            <ListItem button component={Link} to={"/history"}>
               <ListItemIcon>
                 <HistoryIcon />
               </ListItemIcon>
