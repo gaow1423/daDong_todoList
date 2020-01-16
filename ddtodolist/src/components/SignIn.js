@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -59,8 +59,50 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const emailRegex = RegExp(
+  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+);
+
+const formValid = (infos, errors) => {
+  let valid = true;
+  Object.values(infos).forEach(val => {
+    val.length > 0 && (valid = false);
+  });
+  Object.values(errors).forEach(val => {
+    val == null && (valid = false);
+  });
+  //other validation
+  return valid;
+};
+
+const handleChange = (e, setErrors, errors, setLogin, login) => {
+  e.preventDefault();
+  const { name, value } = e.target;
+  switch (name) {
+    case "email":
+      setErrors({
+        password: errors.password,
+        email: emailRegex.test(value) ? "" : "请填写正确电子邮件格式"
+      });
+      break;
+    default:
+      break;
+  }
+  if (name.equals("email")) {
+    setLogin({
+      email: value,
+      password: login.password
+    });
+  } else if (name.equals("password")) {
+    setLogin({
+      email: login.email,
+      password: value
+    });
+  }
+};
 const SignIn = () => {
-  // console.log("iiii");
+  const [login, setLogin] = useState({ email: null, password: null });
+  const [errors, setErrors] = useState({ email: "", password: "" });
   const classes = useStyles();
   return (
     <Container component="main" maxWidth="xs">
@@ -86,6 +128,13 @@ const SignIn = () => {
             id="email"
             label="电子邮件"
             name="email"
+            // onChange={handleSubmit.bind(
+            //   null,
+            //   setErrors,
+            //   errors,
+            //   setLogin,
+            //   login
+            // )}
             autoComplete="email"
             autoFocus
           />

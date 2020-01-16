@@ -16,8 +16,8 @@ const Image = styled.img.attrs({
 `;
 
 const StyleLink = styled(Link)`
-  color: inherit;w
-  text-decoration: none;
+  color: inherit;
+  wtext-decoration: none;
 `;
 
 const Logo = ({ small }) => (
