@@ -14,6 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import styled from "styled-components";
 import logo from "../assets/image/dadong.jpg";
+import { Formik } from "formik";
 // import logo from "../assets/icons/当前所有项目.png";
 
 import { Link as RouterLink } from "react-router-dom";
@@ -63,46 +64,7 @@ const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 );
 
-const formValid = (infos, errors) => {
-  let valid = true;
-  Object.values(infos).forEach(val => {
-    val.length > 0 && (valid = false);
-  });
-  Object.values(errors).forEach(val => {
-    val == null && (valid = false);
-  });
-  //other validation
-  return valid;
-};
-
-const handleChange = (e, setErrors, errors, setLogin, login) => {
-  e.preventDefault();
-  const { name, value } = e.target;
-  switch (name) {
-    case "email":
-      setErrors({
-        password: errors.password,
-        email: emailRegex.test(value) ? "" : "请填写正确电子邮件格式"
-      });
-      break;
-    default:
-      break;
-  }
-  if (name.equals("email")) {
-    setLogin({
-      email: value,
-      password: login.password
-    });
-  } else if (name.equals("password")) {
-    setLogin({
-      email: login.email,
-      password: value
-    });
-  }
-};
 const SignIn = () => {
-  const [login, setLogin] = useState({ email: null, password: null });
-  const [errors, setErrors] = useState({ email: "", password: "" });
   const classes = useStyles();
   return (
     <Container component="main" maxWidth="xs">
@@ -112,75 +74,70 @@ const SignIn = () => {
         <Typography component="h1" variant="h4">
           大东智能化代办事项登录
         </Typography>
-        {/* <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar> */}
-
-        {/* <Typography component="h1" variant="h5">
-          登录
-        </Typography> */}
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="电子邮件"
-            name="email"
-            // onChange={handleSubmit.bind(
-            //   null,
-            //   setErrors,
-            //   errors,
-            //   setLogin,
-            //   login
-            // )}
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="密码"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="记住我的账号"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            to="/home"
-            component={RouterLink}
-          >
-            登录
-          </Button>
-          {/* <Link to="/home" component={RouterLink}>
-            {" "}
-            <p>jaja</p>
-          </Link> */}
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                忘记密码?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link variant="body2" to="/signup" component={RouterLink}>
-                {"注册新账号"}
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          validate={values => {}}
+        >
+          {props => (
+            <form className={classes.form} noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="name"
+                label="电子邮件"
+                type="email"
+                id="email"
+                value={props.values.email}
+                onChange={props.handleChange}
+                onBlur={props.handleBlur}
+                autoComplete="email"
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="密码"
+                type="password"
+                id="password"
+                value={props.values.password}
+                onChange={props.handleChange}
+                onBlur={props.handleBlur}
+                autoComplete="password"
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="记住我的账号"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                to="/home"
+                component={RouterLink}
+              >
+                登录
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    忘记密码?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link variant="body2" to="/signup" component={RouterLink}>
+                    {"注册新账号"}
+                  </Link>
+                </Grid>
+              </Grid>
+            </form>
+          )}
+        </Formik>
       </div>
       <Box mt={8}>
         <Copyright />
